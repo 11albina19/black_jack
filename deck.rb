@@ -21,15 +21,28 @@ class Deck
   attr_reader :cards
 
   def regenerate_cards
-    c1 = Card.new('Черви', 'Десятка', 10)
-    cards << c1
 
-    c2 = Card.new('Черви', 'Дама', 10)
-    cards << c2
+    ranks = (2..10).to_a + %w(В Д К Т)
+    suits = %w(♠ ♥ ♦ ♣)
 
-    c3 = Card.new('Пики', 'Тройка', 3)
-    cards << c3
+    ranks.each do |rank|
+      suits.each do |suit|
+        card = Card.new(rank, suit, 1)
+        puts card.to_s + " " + rank.to_s + " " + suit.to_s
+        cards << card
+      end
+    end
+
+    #c1 = Card.new('Черви', 'Десятка', 10)
+    #cards << c1
+
+    #c2 = Card.new('Черви', 'Дама', 10)
+    #cards << c2
+
+    #c3 = Card.new('Пики', 'Тройка', 3)
+    #cards << c3
   end
+
   def random_pop
     card = cards.sample
     cards.delete(card)
