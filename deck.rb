@@ -3,15 +3,21 @@
 class Deck
 
   def initialize()
+    @cards = []
     regenerate_cards
   end
 
   def take_card
     regenerate_cards if cards.empty?
-    cards.random_pop
+    random_pop
+  end
+
+  def test
+    puts cards
   end
 
   private
+
   attr_reader :cards
 
   def regenerate_cards
@@ -26,10 +32,6 @@ class Deck
   end
   def random_pop
     card = cards.sample
+    cards.delete(card)
   end
-
-  def delete
-
-  end
-
 end
