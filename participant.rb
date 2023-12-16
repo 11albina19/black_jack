@@ -3,9 +3,12 @@
 class Participant
 
   attr_accessor :bank, :cards
+  attr_reader :deck
 
-  def initialize()
-
+  def initialize(deck)
+    @cards = []
+    @bank  = 100
+    @deck  = deck
   end
 
   def points
@@ -13,7 +16,8 @@ class Participant
   end
 
   def deal
-
+    card = deck.take_card
+    cards << card
   end
 
   def record_cards

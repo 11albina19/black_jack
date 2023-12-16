@@ -4,5 +4,7 @@ class Player
 
   attr_accessor :name
 
+  def make_move
 
+  end
 end
