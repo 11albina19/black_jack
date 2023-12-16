@@ -7,21 +7,21 @@ class Participant
 
   def initialize(deck)
     @cards = []
-    @bank  = 100
-    @deck  = deck
+    @bank = 100
+    @deck = deck
   end
 
   def points
-
+    summ = 0
+    cards.each do |card|
+      summ += card.points
+    end
+    summ
   end
 
   def deal
     card = deck.take_card
     cards << card
+    card
   end
-
-  def record_cards
-
-  end
-
 end
