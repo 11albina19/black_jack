@@ -12,11 +12,11 @@ class Participant
   end
 
   def points
-    summ = 0
+    number = 0
     cards.each do |card|
-      summ += card.points
+      number += card.points
     end
-    summ
+    number
   end
 
   def deal
