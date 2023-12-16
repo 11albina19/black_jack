@@ -14,6 +14,8 @@ class Deck
 
   def test
     puts cards
+    #1. тут сделать, чтобы было видно весь массив
+    #3. проверить и удалить этот метод
   end
 
   private
@@ -28,19 +30,11 @@ class Deck
     ranks.each do |rank|
       suits.each do |suit|
         card = Card.new(rank, suit, 1)
-        puts card.to_s + " " + rank.to_s + " " + suit.to_s
+        #2. тут сделать, чтобы очки присваивались нормально
+        puts card.to_s + " " + rank.to_s + " " + suit.to_s #4. эту строчку тоже удалить
         cards << card
       end
     end
-
-    #c1 = Card.new('Черви', 'Десятка', 10)
-    #cards << c1
-
-    #c2 = Card.new('Черви', 'Дама', 10)
-    #cards << c2
-
-    #c3 = Card.new('Пики', 'Тройка', 3)
-    #cards << c3
   end
 
   def random_pop
