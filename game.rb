@@ -16,4 +16,17 @@ class Game
   def recalculation
 
   end
+
+  def determine(player, dealer)
+
+  end
+
+  def check(player, dealer)
+    if player.cards.size == 3 && dealer.cards.size == 3
+      game_over = true
+    else
+      game_over = false
+    end
+    game_over
+  end
 end
