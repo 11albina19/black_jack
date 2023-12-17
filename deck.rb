@@ -2,6 +2,12 @@
 
 class Deck
 
+  MATCHING = {
+    '2': 2, '3': 3, '4': 4, '5': 5,
+    '6': 6, '7': 7, '8': 8, '9': 9, '10': 10,
+    'В': 10, 'Д': 10, 'К': 10, 'Т': [1, 11]
+  }.freeze
+
   def initialize
     @cards = []
     regenerate_cards
@@ -14,8 +20,8 @@ class Deck
 
   def test
     puts cards
-    #1. тут сделать, чтобы было видно весь массив
-    #3. проверить и удалить этот метод
+    # 1. тут сделать, чтобы было видно весь массив
+    # 3. проверить и удалить этот метод
   end
 
   private
@@ -23,15 +29,14 @@ class Deck
   attr_reader :cards
 
   def regenerate_cards
-
     ranks = (2..10).to_a + %w(В Д К Т)
     suits = %w(♠ ♥ ♦ ♣)
-    point = 1
     ranks.each do |rank|
       suits.each do |suit|
+        point = MATCHING[rank.to_s.to_sym]
+        puts point.to_s
         card = Card.new(rank, suit, point)
-        #2. тут сделать, чтобы очки присваивались нормально
-        puts "#{card.to_s} #{rank.to_s}  #{suit.to_s} #{point.to_s}" #4. эту строчку тоже удалить
+        puts "#{card.to_s} #{rank.to_s}  #{suit.to_s} #{point.to_s}" # 4. эту строчку тоже удалить
         cards << card
       end
     end
