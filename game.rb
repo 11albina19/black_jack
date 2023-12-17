@@ -52,16 +52,16 @@ class Game
   end
 
   def skip
-    "Выбран пропуск хода. Ход переходит дилеру"
+    puts "Выбран пропуск хода. Ход переходит дилеру"
   end
 
   def add
-    "Выбрано добавить карту. "
-    "Важно: доступно, только если у вас на руках 2 карты"
+    puts "Выбрано добавить карту. "
+    puts "Важно: доступно, только если у вас на руках 2 карты"
   end
 
   def open_cards
-    "Выбрано вскрыть карты. Начинается подсчет очков"
+    puts "Выбрано вскрыть карты. Начинается подсчет очков"
   end
 end
 
@@ -73,6 +73,6 @@ loop do
   break if action_num == game.exit_action_num
 
   action = game.get_action(action_num)
-  puts "--- #{game.menu.find { |m| m[:number] == action_num }[:message]} ---"
   game.send(action)
+  puts "--- #{game.menu.find { |m| m[:number] == action_num }[:message]} ---"
 end
