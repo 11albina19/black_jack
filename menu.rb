@@ -35,7 +35,7 @@ class Menu
       create_user
       puts "#{self.player.name}, ваш банк: #{self.player.bank}$, банк дилера #{self.dealer.bank}$"
       distribution
-      puts "Сумма ваших очков: " # ДОДЕЛАТЬ
+      points
       place
     end
     show_menu
@@ -115,6 +115,11 @@ class Menu
 
   def check(player, dealer)
     self.game_over = self.game.check(player, dealer)
+  end
+
+  def points
+    puts "Сумма ваших очков: "
+    self.player.points
   end
 end
 

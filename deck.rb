@@ -5,7 +5,7 @@ class Deck
   MATCHING = {
     '2': 2, '3': 3, '4': 4, '5': 5,
     '6': 6, '7': 7, '8': 8, '9': 9, '10': 10,
-    'В': 10, 'Д': 10, 'К': 10, 'Т': [1, 11]
+    'В': 10, 'Д': 10, 'К': 10, 'Т': 1
   }.freeze
 
   def initialize
@@ -28,7 +28,6 @@ class Deck
     ranks.each do |rank|
       suits.each do |suit|
         point = MATCHING[rank.to_s.to_sym]
-        puts point.to_s
         card = Card.new(rank, suit, point)
         cards << card
       end
