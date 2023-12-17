@@ -2,10 +2,9 @@
 
 class Card
 
-  attr_accessor :suit, :rank, :points #масть, достоинство, очки
+  attr_accessor :suit, :rank, :points
 
   def initialize(suit, rank, points)
-    #!Переделывать ли на перечисление, если все равно будет создаваться программно?
     @suit   = suit
     @rank   = rank
     @points = points

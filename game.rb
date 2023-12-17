@@ -13,8 +13,16 @@ class Game
     self.bank += 10
   end
 
-  def recalculation
-
+  def recalculation (player, dealer, champion)
+    if champion == 1
+      player.bank += self.bank
+    elsif champion == 2
+      dealer.bank += self.bank
+    elsif champion == 3
+      player.bank += 10
+      dealer.bank += 10
+      self.bank  -= 20
+    end
   end
 
   def determine(player, dealer)

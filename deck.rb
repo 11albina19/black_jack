@@ -18,12 +18,6 @@ class Deck
     random_pop
   end
 
-  def test
-    puts cards
-    # 1. тут сделать, чтобы было видно весь массив
-    # 3. проверить и удалить этот метод
-  end
-
   private
 
   attr_reader :cards
@@ -36,7 +30,6 @@ class Deck
         point = MATCHING[rank.to_s.to_sym]
         puts point.to_s
         card = Card.new(rank, suit, point)
-        puts "#{card.to_s} #{rank.to_s}  #{suit.to_s} #{point.to_s}" # 4. эту строчку тоже удалить
         cards << card
       end
     end

@@ -101,7 +101,7 @@ class Menu
   def create_user
     puts "Как вас зовут?"
     name = gets.chomp
-    #!!!Тут нужно проверку прописать - если введено не корректное значение
+    name = "demo" if name == nil
     self.player = Player.new(name.to_s, @deck)
   end
 
