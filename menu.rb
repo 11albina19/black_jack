@@ -13,7 +13,7 @@ class Menu
   EXIT_ACTION = 99
 
   attr_reader :exit_action_num, :dealer, :game
-  attr_accessor :player, :start
+  attr_accessor :player, :start, :game_over
 
   MENU = [
     { number: 1, message: 'Пропустить', action: :skip },
@@ -67,6 +67,7 @@ class Menu
     puts "-----------------------------------------"
     puts "Выбран пропуск хода. Ход переходит дилеру"
     self.dealer.make_move
+    check(self.player, self.dealer)
   end
 
   def add
@@ -74,9 +75,11 @@ class Menu
     puts "Выбрано добавить карту. "
     puts "Важно: доступно, только если у вас на руках 2 карты"
     done = self.player.make_move
+    check(self.player, self.dealer)
     if done
       puts "Ваш ход завершен. Ход переходит дилеру"
       self.dealer.make_move
+      check(self.player, self.dealer)
     else
       puts "У вас на руках более 2 карт, добавление не доступно"
     end
@@ -109,6 +112,10 @@ class Menu
     self.game.place(self.dealer)
     puts "#{self.player.name}, ваш банк: #{self.player.bank}$, банк дилера #{self.dealer.bank}$"
     puts "Банк игры: #{self.game.bank}$"
+  end
+
+  def check(player, dealer)
+    self.game_over = self.game.check(player, dealer)
   end
 end
 
