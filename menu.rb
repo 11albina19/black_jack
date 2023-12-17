@@ -86,8 +86,10 @@ class Menu
 
   def open_cards
     puts "-----------------------------------------"
-    puts "Выбрано вскрыть карты. Начинается подсчет очков"
-
+    puts "Начинается подсчет очков"
+    champion = self.game.determine(self.player, self.dealer)
+    self.game.recalculation(self.player, self.dealer, champion)
+    self.game_over = true
   end
 
   def distribution
@@ -115,6 +117,7 @@ class Menu
 
   def check(player, dealer)
     self.game_over = self.game.check(player, dealer)
+    open_cards if self.game_over == true
   end
 
   def points
@@ -129,7 +132,6 @@ game.menu
 loop do
   action_num = game.action_input
   break if action_num == game.exit_action_num
-
   action = game.get_action(action_num)
   game.send(action)
   puts "--- #{game.menu.find { |m| m[:number] == action_num }[:message]} ---"
