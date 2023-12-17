@@ -5,7 +5,12 @@ class Player
   attr_accessor :name
 
   def make_move
-    #deal unless cards.size > 2
-    cards.size <= 2 ? (deal; true) : false
+    if cards.size <= 2
+      card = deal
+      puts "Получена карта #{card}"
+      true
+    else
+      false
+    end
   end
 end
