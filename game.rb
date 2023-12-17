@@ -8,6 +8,11 @@ require_relative 'mechanics'
 require_relative 'menu'
 
 class Game
+  MENU_FIRST_ITEM = 1
+  MENU_LAST_ITEM = 3
+  EXIT_ACTION = 99
+
+  attr_reader :exit_action_num
 
   MENU = [
     {number: 1, message: 'Пропустить', action: :skip },
@@ -30,9 +35,24 @@ class Game
       puts "#{item[:number]}: #{item[:message]}"
     end
   end
+
+  def action_input
+    loop do
+      print 'выполнить команду: '
+      action_num = gets.chomp.to_i
+      return action_num if (action_num >= MENU_FIRST_ITEM && action_num <= MENU_LAST_ITEM) || action_num == EXIT_ACTION
+    end
+  end
+
+  def get_action(action_num)
+    menu_item = @menu.find do |m|
+      m[:number] == action_num
+    end
+    menu_item[:action]
+  end
 end
 
-game = RailRoad.new
+game = Game.new
 game.menu
 #============= main loop ==============
 loop do
