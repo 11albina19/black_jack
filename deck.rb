@@ -26,15 +26,16 @@ class Deck
 
     ranks = (2..10).to_a + %w(В Д К Т)
     suits = %w(♠ ♥ ♦ ♣)
-
+    point = 1
     ranks.each do |rank|
       suits.each do |suit|
-        card = Card.new(rank, suit, 1)
+        card = Card.new(rank, suit, point)
         #2. тут сделать, чтобы очки присваивались нормально
-        puts card.to_s + " " + rank.to_s + " " + suit.to_s #4. эту строчку тоже удалить
+        puts "#{card.to_s} #{rank.to_s}  #{suit.to_s}  #{point.to_s}" #4. эту строчку тоже удалить
         cards << card
       end
     end
+    puts "Колода готова к игре"
   end
 
   def random_pop

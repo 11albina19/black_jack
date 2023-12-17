@@ -5,7 +5,6 @@ require_relative 'participant'
 require_relative 'player'
 require_relative 'dealer'
 require_relative 'mechanics'
-require_relative 'menu'
 
 class Game
   MENU_FIRST_ITEM = 1
@@ -25,7 +24,6 @@ class Game
     @deck = Deck.new
     @user = Player.new('demo', @deck)
     @dealer = Dealer.new(@deck)
-
     @menu = MENU
     @exit_action_num = EXIT_ACTION
   end
@@ -42,7 +40,7 @@ class Game
 
   def action_input
     loop do
-      print 'выполнить команду: '
+      print 'Ваш ход. Выберите команду из списка: '
       action_num = gets.chomp.to_i
       return action_num if (action_num >= MENU_FIRST_ITEM && action_num <= MENU_LAST_ITEM) || action_num == EXIT_ACTION
     end
