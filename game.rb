@@ -16,5 +16,30 @@ class Game
     {number: 99, message: 'Завершить выполнение программы', action: :show_menu }
   ].freeze
 
+  def initialize
+    @menu = MENU
+    @exit_action_num = EXIT_ACTION
+  end
 
+  def menu
+    show_menu
+  end
+
+  def show_menu
+    @menu.each do |item|
+      puts "#{item[:number]}: #{item[:message]}"
+    end
+  end
+end
+
+game = RailRoad.new
+game.menu
+#============= main loop ==============
+loop do
+  action_num = game.action_input
+  break if action_num == game.exit_action_num
+
+  action = game.get_action(action_num)
+  puts "--- #{game.menu.find { |m| m[:number] == action_num }[:message]} ---"
+  game.send(action)
 end
