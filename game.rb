@@ -8,16 +8,16 @@ require_relative 'mechanics'
 require_relative 'menu'
 
 class Game
-  MENU_FIRST_ITEM = 1
-  MENU_LAST_ITEM = 3
+  MENU_FIRST_ITEM = 0
+  MENU_LAST_ITEM = 2
   EXIT_ACTION = 99
 
   attr_reader :exit_action_num
 
   MENU = [
-    {number: 1, message: 'Пропустить', action: :skip },
-    {number: 2, message: 'Добавить карту', action: :add },
-    {number: 3, message: 'Открыть карты', action: :open },
+    {number: 0, message: 'Пропустить', action: :skip },
+    {number: 1, message: 'Добавить карту', action: :add },
+    {number: 2, message: 'Открыть карты', action: :open_cards },
     {number: 99, message: 'Завершить выполнение программы', action: :show_menu }
   ].freeze
 
@@ -49,6 +49,19 @@ class Game
       m[:number] == action_num
     end
     menu_item[:action]
+  end
+
+  def skip
+    "Выбран пропуск хода. Ход переходит дилеру"
+  end
+
+  def add
+    "Выбрано добавить карту. "
+    "Важно: доступно, только если у вас на руках 2 карты"
+  end
+
+  def open_cards
+    "Выбрано вскрыть карты. Начинается подсчет очков"
   end
 end
 
