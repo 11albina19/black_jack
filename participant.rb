@@ -12,9 +12,22 @@ class Participant
   end
 
   def points
-    number = 0
+    number, aces, summ = 0
     cards.each do |card|
-      number += card.points
+      if card.rank == 'Т'
+        aces += 1
+        number += 1
+      else
+        number += card.points
+      end
+    end
+    aces.times do
+      break if number >= 21
+      summ = number
+      number += 10
+      if number > 21
+        summ, number = number, summ #если превышение, берем вариант до
+      end
     end
     number
   end
