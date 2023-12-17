@@ -2,7 +2,7 @@
 
 class Deck
 
-  def initialize()
+  def initialize
     @cards = []
     regenerate_cards
   end
