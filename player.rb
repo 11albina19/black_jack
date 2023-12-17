@@ -13,7 +13,7 @@ class Player < Participant
   def make_move
     if cards.size <= 2
       card = deal
-      puts "Получена карта #{card}"
+      puts "Получена карта #{card.suit}  #{card.rank}  #{card.points} "
       true
     else
       false

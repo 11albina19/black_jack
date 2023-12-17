@@ -29,13 +29,11 @@ class Game
   end
 
   def menu
-    puts "Как вас зовут?"
-    name = gets.chomp
-    #!!!Тут нужно проверку прописать - если введено не корректное значение
-    name ||= "demo"
-    self.user = Player.new(name.to_s, @deck)
-    puts "#{self.user.name}, здравствуйте!"
-    puts "Ваш банк: #{self.user.bank}$, банк дилера #{self.dealer.bank}$"
+    create_user
+    puts "#{self.user.name}, ваш банк: #{self.user.bank}$, банк дилера #{self.dealer.bank}$"
+    distribution
+    puts "Сумма ваших очков: " #ДОДЕЛАТЬ
+    puts "Ставка в банк игры - 10$ с каждой стороны" #ДОДЕЛАТЬ
     show_menu
   end
 
@@ -71,6 +69,21 @@ class Game
 
   def open_cards
     puts "Выбрано вскрыть карты. Начинается подсчет очков"
+  end
+
+  def distribution
+    puts "Приступаем к раздаче карт. Ваши карты:"
+    2.times do
+      self.user.make_move
+      self.dealer.deal
+    end
+  end
+
+  def create_user
+    puts "Как вас зовут?"
+    name = gets.chomp
+    #!!!Тут нужно проверку прописать - если введено не корректное значение
+    self.user = Player.new(name.to_s, @deck)
   end
 end
 
