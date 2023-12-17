@@ -6,13 +6,13 @@ require_relative 'player'
 require_relative 'dealer'
 require_relative 'mechanics'
 
-class Game
+class Menu
   MENU_FIRST_ITEM = 1
   MENU_LAST_ITEM = 3
   EXIT_ACTION = 99
 
   attr_reader :exit_action_num, :dealer
-  attr_accessor :user
+  attr_accessor :user, :bank
 
   MENU = [
     {number: 1, message: 'Пропустить', action: :skip },
@@ -26,6 +26,7 @@ class Game
     @dealer = Dealer.new(@deck)
     @menu = MENU
     @exit_action_num = EXIT_ACTION
+    @bank = 100
   end
 
   def menu
@@ -87,7 +88,7 @@ class Game
   end
 end
 
-game = Game.new
+game = Menu.new
 game.menu
 #============= main loop ==============
 loop do

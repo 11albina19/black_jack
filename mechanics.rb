@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
 module Mechanics
-  def place
-
-  end
+  #def place(user, classe)
+  #  user.bank -= 10
+  #  classe.bank += 10
+  #end
 
   def determine
 

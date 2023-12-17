@@ -31,7 +31,7 @@ class Deck
       suits.each do |suit|
         card = Card.new(rank, suit, point)
         #2. тут сделать, чтобы очки присваивались нормально
-        puts "#{card.to_s} #{rank.to_s}  #{suit.to_s}  #{point.to_s}" #4. эту строчку тоже удалить
+        puts "#{card.to_s} #{rank.to_s}  #{suit.to_s} #{point.to_s}" #4. эту строчку тоже удалить
         cards << card
       end
     end
