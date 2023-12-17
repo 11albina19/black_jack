@@ -11,7 +11,8 @@ class Game
   MENU_LAST_ITEM = 3
   EXIT_ACTION = 99
 
-  attr_reader :exit_action_num
+  attr_reader :exit_action_num, :dealer
+  attr_accessor :user
 
   MENU = [
     {number: 1, message: 'Пропустить', action: :skip },
@@ -22,13 +23,19 @@ class Game
 
   def initialize
     @deck = Deck.new
-    @user = Player.new('demo', @deck)
     @dealer = Dealer.new(@deck)
     @menu = MENU
     @exit_action_num = EXIT_ACTION
   end
 
   def menu
+    puts "Как вас зовут?"
+    name = gets.chomp
+    #!!!Тут нужно проверку прописать - если введено не корректное значение
+    name ||= "demo"
+    self.user = Player.new(name.to_s, @deck)
+    puts "#{self.user.name}, здравствуйте!"
+    puts "Ваш банк: #{self.user.bank}$, банк дилера #{self.dealer.bank}$"
     show_menu
   end
 
