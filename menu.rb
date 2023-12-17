@@ -11,8 +11,8 @@ class Menu
   MENU_LAST_ITEM = 3
   EXIT_ACTION = 99
 
-  attr_reader :exit_action_num, :dealer
-  attr_accessor :user, :bank
+  attr_reader :exit_action_num, :dealer, :game
+  attr_accessor :user
 
   MENU = [
     {number: 1, message: 'Пропустить', action: :skip },
@@ -22,11 +22,11 @@ class Menu
   ].freeze
 
   def initialize
+    @game = Game.new
     @deck = Deck.new
     @dealer = Dealer.new(@deck)
     @menu = MENU
     @exit_action_num = EXIT_ACTION
-    @bank = 100
   end
 
   def menu
