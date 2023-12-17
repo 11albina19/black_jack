@@ -5,6 +5,7 @@ require_relative 'participant'
 require_relative 'player'
 require_relative 'dealer'
 require_relative 'mechanics'
+require_relative 'game'
 
 class Menu
   MENU_FIRST_ITEM = 1
@@ -12,13 +13,13 @@ class Menu
   EXIT_ACTION = 99
 
   attr_reader :exit_action_num, :dealer, :game
-  attr_accessor :user
+  attr_accessor :player, :start
 
   MENU = [
-    {number: 1, message: 'Пропустить', action: :skip },
-    {number: 2, message: 'Добавить карту', action: :add },
-    {number: 3, message: 'Открыть карты', action: :open_cards },
-    {number: 99, message: 'Завершить выполнение программы', action: :show_menu }
+    { number: 1, message: 'Пропустить', action: :skip },
+    { number: 2, message: 'Добавить карту', action: :add },
+    { number: 3, message: 'Открыть карты', action: :open_cards },
+    { number: 99, message: 'Завершить выполнение программы', action: :show_menu }
   ].freeze
 
   def initialize
@@ -27,14 +28,17 @@ class Menu
     @dealer = Dealer.new(@deck)
     @menu = MENU
     @exit_action_num = EXIT_ACTION
+    @start = true
   end
 
   def menu
-    create_user
-    puts "#{self.user.name}, ваш банк: #{self.user.bank}$, банк дилера #{self.dealer.bank}$"
-    distribution
-    puts "Сумма ваших очков: " #ДОДЕЛАТЬ
-    puts "Ставка в банк игры - 10$ с каждой стороны" #ДОДЕЛАТЬ
+    if self.player == nil
+      create_user
+      puts "#{self.player.name}, ваш банк: #{self.player.bank}$, банк дилера #{self.dealer.bank}$"
+      distribution
+      puts "Сумма ваших очков: " # ДОДЕЛАТЬ
+      place
+    end
     show_menu
   end
 
@@ -60,22 +64,34 @@ class Menu
   end
 
   def skip
+    puts "-----------------------------------------"
     puts "Выбран пропуск хода. Ход переходит дилеру"
+    self.dealer.make_move
   end
 
   def add
+    puts "-----------------------------------------"
     puts "Выбрано добавить карту. "
     puts "Важно: доступно, только если у вас на руках 2 карты"
+    done = self.player.make_move
+    if done
+      puts "Ваш ход завершен. Ход переходит дилеру"
+      self.dealer.make_move
+    else
+      puts "У вас на руках более 2 карт, добавление не доступно"
+    end
   end
 
   def open_cards
+    puts "-----------------------------------------"
     puts "Выбрано вскрыть карты. Начинается подсчет очков"
+
   end
 
   def distribution
     puts "Приступаем к раздаче карт. Ваши карты:"
     2.times do
-      self.user.make_move
+      self.player.make_move
       self.dealer.deal
     end
   end
@@ -84,7 +100,15 @@ class Menu
     puts "Как вас зовут?"
     name = gets.chomp
     #!!!Тут нужно проверку прописать - если введено не корректное значение
-    self.user = Player.new(name.to_s, @deck)
+    self.player = Player.new(name.to_s, @deck)
+  end
+
+  def place
+    puts "Ставка в банк игры - 10$ с каждой стороны"
+    self.game.place(self.player)
+    self.game.place(self.dealer)
+    puts "#{self.player.name}, ваш банк: #{self.player.bank}$, банк дилера #{self.dealer.bank}$"
+    puts "Банк игры: #{self.game.bank}$"
   end
 end
 
