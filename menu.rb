@@ -6,6 +6,8 @@ require_relative 'player'
 require_relative 'dealer'
 require_relative 'game'
 
+require 'pry'
+
 class Menu
   MENU_FIRST_ITEM = 1
   MENU_LAST_ITEM = 3
@@ -27,6 +29,7 @@ class Menu
     @dealer = Dealer.new(@deck)
     @menu = MENU
     @exit_action_num = EXIT_ACTION
+    binding.pry
   end
 
   def start

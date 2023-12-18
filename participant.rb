@@ -24,16 +24,10 @@ class Participant
       end
     end
     if aces > 0
-      puts "Отладка. Зашло в if"
       aces.times do
-        puts "1. Зашло в блок. #{aces.to_s}"
         break if number >= 21
-        puts "2. summ #{summ.to_s}"
-        puts "3. number #{number.to_s}"
         summ = number
         number += 10
-        puts "4. summ #{summ.to_s}"
-        puts "5. number #{number.to_s}"
         if number > 21
           summ, number = number, summ # если превышение, берем вариант до
         end
