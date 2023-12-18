@@ -2,10 +2,11 @@
 
 class Game
 
-  attr_accessor :bank
+  attr_accessor :bank, :game_over
 
   def initialize
     @bank = 100
+    @game_over = false
   end
 
   def place(user)
@@ -26,9 +27,11 @@ class Game
       self.bank  -= 20
       puts "Игра закончилась ничьей"
     end
+    self.game_over = true
   end
 
   def determine(player, dealer)
+    show(player, dealer)
     number_player = player.points
     number_dealer = dealer.points
     champion = 0
@@ -52,10 +55,19 @@ class Game
 
   def check(player, dealer)
     if player.cards.size == 3 && dealer.cards.size == 3
-      game_over = true
+      game_finish = true
     else
-      game_over = false
+      game_finish = false
     end
-    game_over
+    game_finish
+  end
+
+  def show(player, dealer)
+    puts 'Ваши карты:'
+    player.show_cards
+    puts "Ваши очки: #{player.points}"
+    puts 'Карты дилера:'
+    dealer.show_cards
+    puts "Очки дилера: #{dealer.points}"
   end
 end
