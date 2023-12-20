@@ -17,9 +17,11 @@ class Game
   def recalculation (player, dealer, champion)
     if champion == 1
       player.bank += self.bank
+      self.bank  -= 20
       puts "Вы победили!"
     elsif champion == 2
       dealer.bank += self.bank
+      self.bank  -= 20
       puts "Вы проиграли."
     elsif champion == 3
       player.bank += 10

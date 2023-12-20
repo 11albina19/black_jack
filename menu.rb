@@ -33,13 +33,16 @@ class Menu
   end
 
   def start # показывается только 1 раз
+    puts "------------------------------------------------------"
     fill_user
   end
 
   def replay # показывается каждый раз при повторной игре
+    puts "------------------------------------------------------"
     bank
     distribution
     place
+    puts "------------------------------------------------------"
   end
 
   def clear
@@ -47,6 +50,7 @@ class Menu
     self.player.cards.clear
     self.game.bank = 0
   end
+
   def show_menu # вывод меню
     @menu.each do |item|
       puts "#{item[:number]}: #{item[:message]}"
@@ -69,24 +73,26 @@ class Menu
   end
 
   def skip
-    puts "-----------------------------------------"
-    puts "Выбран пропуск хода. Ход переходит дилеру"
+    puts "-------------пропуск хода----------------------------"
+    puts "Ход переходит дилеру"
     dealers_move
+    puts "------------------------------------------------------"
   end
 
   def add
-    puts "-----------------------------------------"
-    puts "Выбрано добавить карту. "
-    puts "Важно: доступно, только если у вас на руках 2 карты"
+    puts "-------------добавить карту----------------------------"
     player_move
+    puts "------------------------------------------------------"
   end
 
   def open_cards
-    puts "-----------------------------------------"
+    puts "-------------открыть карты----------------------------"
     puts "Начинается подсчет очков"
     champion = self.game.determine(self.player, self.dealer)
     self.game.recalculation(self.player, self.dealer, champion)
     self.game.game_over = true
+    bank
+    puts "------------------------------------------------------"
   end
 
   def distribution
@@ -111,13 +117,17 @@ class Menu
     puts "Ставка в банк игры - 10$ с каждой стороны"
     self.game.place(self.player)
     self.game.place(self.dealer)
-    puts "#{self.player.name}, ваш банк: #{self.player.bank}$, банк дилера #{self.dealer.bank}$"
-    puts "Банк игры: #{self.game.bank}$"
+    bank
   end
 
   def check
     self.game.game_over = self.game.check(self.player, self.dealer)
-    open_cards if self.game.game_over
+    if self.game.game_over
+      open_cards
+      true
+    else
+      false
+    end
   end
 
   def points
@@ -125,6 +135,7 @@ class Menu
   end
 
   def dealers_move
+    puts "Дилер завершил ход"
     if self.dealer.check
       card = self.deck.take_card
       self.dealer.write(card)
@@ -136,10 +147,11 @@ class Menu
     if self.player.check
       card = self.deck.take_card
       self.player.write(card)
-      check
+      show_card(card)
       points
-      puts "Ваш ход завершен. Ход переходит дилеру"
-      dealers_move
+      game_over = check
+      puts "Ваш ход завершен."
+      dealers_move unless game_over
     else
       puts "У вас на руках более 2 карт, добавление не доступно"
     end
@@ -150,21 +162,24 @@ class Menu
   end
 
   def bank
-    puts "#{self.player.name}, ваш банк: #{self.player.bank}$, банк дилера #{self.dealer.bank}$"
+    puts "#{self.player.name}, ваш банк: #{self.player.bank}$, банк дилера: #{self.dealer.bank}$"
+    puts "Банк игры: #{self.game.bank}$"
   end
 end
 
 new_game = Menu.new
 new_game.start
 new_game.replay
+#new_game.show_menu
 #============= main loop ==============
 loop do
-  new_game.show_menu unless new_game.game.game_over
+  new_game.show_menu #unless new_game.game.game_over
+
   action_num = new_game.action_input
   break if action_num == new_game.exit_action_num
   action = new_game.get_action(action_num)
-  puts "--- #{new_game.show_menu.find { |m| m[:number] == action_num }[:message]} ---"
   new_game.send(action)
+
   if new_game.game.game_over
     puts "Игра завершена!"
     puts "Хотите сыграть снова? да - 1, нет - любая другая цифра"

@@ -15,7 +15,7 @@ class Deck
 
   def take_card
     regenerate_cards if cards.empty?
-    cards.pop #почитать как работает, удалит или нет выданную карту
+    cards.pop
   end
 
   private
@@ -28,7 +28,7 @@ class Deck
     ranks.each do |rank|
       suits.each do |suit|
         point = MATCHING[rank.to_s.to_sym]
-        card = Card.new(rank, suit, point)
+        card = Card.new(suit, rank, point)
         cards << card
       end
     end
