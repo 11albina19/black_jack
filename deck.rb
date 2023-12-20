@@ -5,7 +5,7 @@ class Deck
   MATCHING = {
     '2': 2, '3': 3, '4': 4, '5': 5,
     '6': 6, '7': 7, '8': 8, '9': 9, '10': 10,
-    'В': 10, 'Д': 10, 'К': 10, 'Т': 1
+    'В': 10, 'Д': 10, 'К': 10, 'Т': 11
   }.freeze
 
   def initialize
@@ -15,7 +15,7 @@ class Deck
 
   def take_card
     regenerate_cards if cards.empty?
-    random_pop
+    cards.pop #почитать как работает, удалит или нет выданную карту
   end
 
   private
@@ -32,11 +32,7 @@ class Deck
         cards << card
       end
     end
+    cards.shuffle!
     puts "Колода готова к игре"
-  end
-
-  def random_pop
-    card = cards.sample
-    cards.delete(card)
   end
 end

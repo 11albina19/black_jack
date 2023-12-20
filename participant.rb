@@ -2,44 +2,49 @@
 
 class Participant
 
-  attr_accessor :bank, :cards
+  attr_accessor :bank, :cards, :cards_test#удалить!!!!!
   attr_reader :deck
 
   def initialize(deck)
     @cards = []
+    @cards_test = []#удалить!!!!!
     @bank = 100
     @deck = deck
   end
 
-  def points
-    number = 0
-    aces = 0
-    summ = 0
+  def aces_count
+    count = 0
     cards.each do |card|
-      if card.rank == 'Т'
-        aces += 1
-        number += 1
-      else
-        number += card.points
-      end
+      count += 1 if card.rank == 'Т'
     end
-    if aces > 0
-      aces.times do
-        break if number >= 21
-        summ = number
-        number += 10
-        if number > 21
-          summ, number = number, summ # если превышение, берем вариант до
-        end
-      end
-    end
-    number
+    count
+  end
+
+  def points
+    points = cards.sum(&:points)
+    aces_count.times{ points -= 10 if points > 21 }
+    points
   end
 
   def deal
     card = deck.take_card
     cards << card
+    test_test_test#подставлены нужные данные
     card
+  end
+
+  def test_test_test
+    c1 = Card.new('♥', '4', 4)
+    cards_test << c1
+
+    c2 = Card.new('♥', '7', 7)
+    cards_test << c2
+
+    c3 = Card.new('♥', 'Т', 11)
+    cards_test << c3
+
+    cards.clear
+    cards.concat(cards_test)
   end
 
   def show_cards

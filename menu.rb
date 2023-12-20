@@ -29,7 +29,6 @@ class Menu
     @dealer = Dealer.new(@deck)
     @menu = MENU
     @exit_action_num = EXIT_ACTION
-    binding.pry
   end
 
   def start
