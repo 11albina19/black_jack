@@ -173,13 +173,11 @@ new_game.replay
 #new_game.show_menu
 #============= main loop ==============
 loop do
-  new_game.show_menu #unless new_game.game.game_over
-
+  new_game.show_menu 
   action_num = new_game.action_input
   break if action_num == new_game.exit_action_num
   action = new_game.get_action(action_num)
   new_game.send(action)
-
   if new_game.game.game_over
     puts "Игра завершена!"
     puts "Хотите сыграть снова? да - 1, нет - любая другая цифра"
