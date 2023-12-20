@@ -5,7 +5,7 @@ class Game
   attr_accessor :bank, :game_over
 
   def initialize
-    @bank = 100
+    @bank = 0
     @game_over = false
   end
 

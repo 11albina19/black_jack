@@ -2,14 +2,11 @@
 
 class Participant
 
-  attr_accessor :bank, :cards, :cards_test#удалить!!!!!
-  attr_reader :deck
+  attr_accessor :bank, :cards
 
-  def initialize(deck)
+  def initialize
     @cards = []
-    @cards_test = []#удалить!!!!!
     @bank = 100
-    @deck = deck
   end
 
   def aces_count
@@ -22,29 +19,12 @@ class Participant
 
   def points
     points = cards.sum(&:points)
-    aces_count.times{ points -= 10 if points > 21 }
+    aces_count.times { points -= 10 if points > 21 }
     points
   end
 
-  def deal
-    card = deck.take_card
+  def write(card)
     cards << card
-    test_test_test#подставлены нужные данные
-    card
-  end
-
-  def test_test_test
-    c1 = Card.new('♥', '4', 4)
-    cards_test << c1
-
-    c2 = Card.new('♥', '7', 7)
-    cards_test << c2
-
-    c3 = Card.new('♥', 'Т', 11)
-    cards_test << c3
-
-    cards.clear
-    cards.concat(cards_test)
   end
 
   def show_cards

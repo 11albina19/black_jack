@@ -5,18 +5,12 @@ class Player < Participant
 
   attr_accessor :name
 
-  def initialize(name, deck)
+  def initialize(name = 'demo')
     @name = name
-    super(deck)
+    super()
   end
 
-  def make_move
-    if cards.size <= 2
-      card = deal
-      puts "Получена карта #{card.suit}  #{card.rank}, приносит очков: #{card.points} "
-      true
-    else
-      false
-    end
+  def check
+    cards.size <= 2 ? true : false
   end
 end
